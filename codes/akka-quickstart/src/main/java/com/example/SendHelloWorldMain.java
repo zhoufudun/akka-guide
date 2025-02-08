@@ -7,19 +7,14 @@ import akka.actor.typed.javadsl.AbstractBehavior;
 import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
-import akka.japi.function.Function;
 
 
-public class HelloWorldMain2 extends AbstractBehavior<HelloWorldMain2.SayHello> {
+public class SendHelloWorldMain extends AbstractBehavior<SendHelloWorldMain.SayHello> {
 
 
     public static void main(String[] args) throws Exception {
-
-        final ActorSystem<SayHello> system = ActorSystem.create(HelloWorldMain2.create(), "hello");
-
-        system.tell(new HelloWorldMain2.SayHello("World"));
-        system.tell(new HelloWorldMain2.SayHello("Akka"));
-
+        final ActorSystem<SayHello> system = ActorSystem.create(SendHelloWorldMain.create(), "I-am-Sender");
+        system.tell(new SendHelloWorldMain.SayHello("World"));
         Thread.sleep(3000);
         system.terminate();
     }
@@ -37,19 +32,14 @@ public class HelloWorldMain2 extends AbstractBehavior<HelloWorldMain2.SayHello> 
     }
 
     public static Behavior<SayHello> create() {
-        return Behaviors.setup(new Function<ActorContext<SayHello>, Behavior<SayHello>>() {
-            @Override
-            public Behavior<SayHello> apply(ActorContext<SayHello> param) throws Exception, Exception {
-                return new HelloWorldMain2(param);
-            }
-        });
+        return Behaviors.setup(SendHelloWorldMain::new);
     }
 
-    private final ActorRef<HelloWorld2.Greet> greeter;
+    private final ActorRef<ReceiveMsg.Msg> receiver;
 
-    private HelloWorldMain2(ActorContext<SayHello> context) {
+    private SendHelloWorldMain(ActorContext<SayHello> context) {
         super(context);
-        greeter = context.spawn(HelloWorld2.create(), "greeter");
+        receiver = context.spawn(ReceiveMsg.create(), "receiver");
     }
 
     @Override
@@ -58,9 +48,9 @@ public class HelloWorldMain2 extends AbstractBehavior<HelloWorldMain2.SayHello> 
     }
 
     private Behavior<SayHello> onSayHello(SayHello command) {
-        ActorRef<HelloWorld2.Greeted> replyTo =
-                getContext().spawn(HelloWorldBot2.create(3), command.name);
-        greeter.tell(new HelloWorld2.Greet(command.name, replyTo));
+        ActorRef<ReceiveMsg.ReturnMsg> replyTo =
+                getContext().spawn(ReceiveReturnMsg.create(3), command.name);
+        receiver.tell(new ReceiveMsg.Msg(command.name, replyTo));
         return this;
     }
 }

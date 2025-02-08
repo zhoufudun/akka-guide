@@ -1,3 +1,4 @@
+<!-- #build-sample -->
 <project>
     <modelVersion>4.0.0</modelVersion>
 
@@ -6,38 +7,25 @@
     <version>1.0</version>
 
     <properties>
-      <akka.version>2.10.0</akka.version>
+        <akka.version>2.5.19</akka.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>akka-repository</id>
-            <name>Akka library repository</name>
-            <url>https://repo.akka.io/maven</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor-typed_2.13</artifactId>
+            <artifactId>akka-actor_2.12</artifactId>
             <version>${akka.version}</version>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.5.8</version>
-        </dependency>
-        <dependency>
             <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor-testkit-typed_2.13</artifactId>
+            <artifactId>akka-testkit_2.12</artifactId>
             <version>${akka.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -46,22 +34,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.5.1</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>1.6.0</version>
                 <configuration>
                     <executable>java</executable>
                     <arguments>
                         <argument>-classpath</argument>
                         <classpath />
-                        <argument>com.example.HelloWorldMain</argument>
+                        <argument>com.lightbend.akka.sample.AkkaQuickstart</argument>
                     </arguments>
                 </configuration>
             </plugin>

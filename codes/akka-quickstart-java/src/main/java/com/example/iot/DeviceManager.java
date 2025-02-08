@@ -49,20 +49,6 @@ public class DeviceManager extends AbstractActor {
         log.info("DeviceManager stopped");
     }
 
-    private void onTrackDevice(RequestTrackDevice trackMsg) {
-        String groupId = trackMsg.groupId;
-        ActorRef ref = groupIdToActor.get(groupId);
-        if (ref != null) {
-            ref.forward(trackMsg, getContext());
-        } else {
-            log.info("Creating device group actor for {}", groupId);
-            ActorRef groupActor = getContext().actorOf(DeviceGroup.props(groupId), "group-" + groupId);
-            getContext().watch(groupActor);
-            groupActor.forward(trackMsg, getContext());
-            groupIdToActor.put(groupId, groupActor);
-            actorToGroupId.put(groupActor, groupId);
-        }
-    }
 
     private void onTerminated(Terminated t) {
         ActorRef groupActor = t.getActor();
@@ -79,4 +65,18 @@ public class DeviceManager extends AbstractActor {
                 .build();
     }
 
+    private void onTrackDevice(RequestTrackDevice trackMsg) {
+        String groupId = trackMsg.groupId;
+        ActorRef ref = groupIdToActor.get(groupId);
+        if (ref != null) {
+            ref.forward(trackMsg, getContext());
+        } else {
+            log.info("Creating device group actor for {}", groupId);
+            ActorRef groupActor = getContext().actorOf(DeviceGroup.props(groupId), "group-" + groupId);
+            getContext().watch(groupActor);
+            groupActor.forward(trackMsg, getContext());
+            groupIdToActor.put(groupId, groupActor);
+            actorToGroupId.put(groupActor, groupId);
+        }
+    }
 }

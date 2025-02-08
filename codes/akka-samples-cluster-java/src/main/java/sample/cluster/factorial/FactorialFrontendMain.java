@@ -4,6 +4,7 @@ package sample.cluster.factorial;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.TimeUnit;
 
+import akka.cluster.Cluster;
 import scala.concurrent.Await;
 import scala.concurrent.duration.Duration;
 import com.typesafe.config.Config;
@@ -11,7 +12,6 @@ import com.typesafe.config.ConfigFactory;
 
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import akka.cluster.Cluster;
 
 public class FactorialFrontendMain {
 

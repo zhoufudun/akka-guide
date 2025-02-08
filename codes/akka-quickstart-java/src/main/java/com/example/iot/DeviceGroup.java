@@ -71,7 +71,7 @@ public class DeviceGroup extends AbstractActor {
             } else {
                 log.info("Creating device actor for {}", trackMsg.deviceId);
                 deviceActor = getContext().actorOf(Device.props(groupId, trackMsg.deviceId), "device-" + trackMsg.deviceId);
-                getContext().watch(deviceActor);
+                getContext().watch(deviceActor); // 为了监控设备 actor 的终止，Terminated类会被触发，方法 OnTerminated会被调用
                 actorToDeviceId.put(deviceActor, trackMsg.deviceId);
                 deviceIdToActor.put(trackMsg.deviceId, deviceActor);
                 deviceActor.forward(trackMsg, getContext());

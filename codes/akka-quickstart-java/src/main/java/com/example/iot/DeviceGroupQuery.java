@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * @author Charies Gavin
- *         https:github.com/guobinhit
+ * https:github.com/guobinhit
  * @date 1/17/19,11:15 AM
  * @description device group query actor
  */

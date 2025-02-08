@@ -1,6 +1,5 @@
 package sample.cluster.factorial;
 
-import akka.cluster.Cluster;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 import akka.actor.ActorSystem;

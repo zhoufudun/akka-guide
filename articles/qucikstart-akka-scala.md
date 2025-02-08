@@ -276,7 +276,7 @@ package com.lightbend.akka.sample;
 import java.io.IOException;
 
 import com.lightbend.akka.sample.Greeter.Greet;
-import com.lightbend.akka.sample.Greeter.WhoToGreet;
+import com.lightbend.akka.sample.Greeter.name;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -414,7 +414,7 @@ package com.lightbend.akka.sample;
 import java.io.IOException;
 
 import com.lightbend.akka.sample.Greeter.Greet;
-import com.lightbend.akka.sample.Greeter.WhoToGreet;
+import com.lightbend.akka.sample.Greeter.name;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -472,7 +472,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.lightbend.akka.sample.Greeter.Greet;
-import com.lightbend.akka.sample.Greeter.WhoToGreet;
+import com.lightbend.akka.sample.Greeter.name;
 import com.lightbend.akka.sample.Printer.Greeting;
 
 import akka.actor.ActorRef;
